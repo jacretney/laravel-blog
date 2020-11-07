@@ -24,7 +24,7 @@ class BaseRepository implements EloquentRepositoryInterface
 
     /**
      * @param $id
-     * @return Post|null
+     * @return Model|null
      */
     public function byId($id): ?Model
     {
@@ -33,7 +33,7 @@ class BaseRepository implements EloquentRepositoryInterface
 
     /**
      * @param array $content
-     * @return Post
+     * @return Model
      */
     public function create($content): Model
     {
@@ -43,7 +43,7 @@ class BaseRepository implements EloquentRepositoryInterface
     /**
      * @param $id
      * @param $content
-     * @return Post
+     * @return Model
      */
     public function update($id, $content): Model
     {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Repository\PostRepositoryInterface;
@@ -58,13 +59,15 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $content = json_decode($request->getContent(), true);
-        $post = $this->postRepository->update($id, $content);
-        if (!$post) {
-            return new Response([ "error" => "Post not found" ], 404);
+        $post = $this->postRepository->byId($id);
+
+        if ($post) {
+            $content = json_decode($request->getContent(), true);
+            $post = $this->postRepository->update($id, $content);
+            return new Response($post, 200);
         }
 
-        return new Response($post, 200);
+        return new Response([ "error" => "Post not found" ], 404);
     }
 
     /**
@@ -74,11 +77,13 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        try {
+        $post = $this->postRepository->byId($id);
+
+        if ($post) {
             $this->postRepository->delete($id);
             return new Response([], 204);
-        } catch(\Exception $exception) {
-            return new Response([ "error" => "Post not found" ], 404);
         }
+
+        return new Response([ "error" => "Post not found" ], 404);
     }
 }

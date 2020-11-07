@@ -41,7 +41,12 @@ class PostControllerTest extends TestCase
 
     public function testUpdateExistingPost(): void
     {
-        $this->doMock('update', true);
+        $this->mock(PostRepositoryInterface::class, function ($mock) {
+            $mock->shouldReceive([
+                'byId' => $this->getPost(),
+                'update' => $this->getPost()
+            ]);
+        });
 
         $response = $this->patch('/api/posts/1');
         $response->assertStatus(200)
@@ -50,7 +55,7 @@ class PostControllerTest extends TestCase
 
     public function testUpdateNonExistentPost(): void
     {
-        $this->doMock('update', false);
+        $this->doMock('byId', false);
 
         $response = $this->patch('/api/posts/22');
         $response->assertStatus(404);
@@ -58,7 +63,12 @@ class PostControllerTest extends TestCase
 
     public function testDeletePost(): void
     {
-        $this->doMock('delete', false);
+        $this->mock(PostRepositoryInterface::class, function ($mock) {
+            $mock->shouldReceive([
+                'byId' => $this->getPost(),
+                'delete' => $this->getPost()
+            ]);
+        });
 
         $response = $this->delete('/api/posts/1');
         $response->assertNoContent();
@@ -67,9 +77,7 @@ class PostControllerTest extends TestCase
 
     public function testDeleteNonExistentPost(): void
     {
-        $this->mock(PostRepositoryInterface::class, function ($mock) {
-            $mock->shouldReceive('delete')->andThrow(new \Exception);;
-        });
+        $this->doMock('byId', false);
 
         $response = $this->delete('/api/posts/1');
         $response->assertStatus(404);
