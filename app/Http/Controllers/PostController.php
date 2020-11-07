@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repository\PostRepositoryInterface;
 use Illuminate\Http\Response;
+use App\Repository\PostRepositoryInterface;
 
 class PostController extends Controller
 {

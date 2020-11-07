@@ -7,14 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 interface EloquentRepositoryInterface
 {
     /**
-    * @param array $attributes
-    * @return Model
-    */
-    public function create(array $attributes): Model;
+     * @param $id
+     * @return Post|null
+     */
+    public function byId($id): ?Model;
 
     /**
-    * @param $id
-    * @return Model
-    */
-    public function find($id): ?Model;
+     * @param $content
+     * @return mixed
+     */
+    public function create($content): Model;
+
+    /**
+     * @param $id
+     * @param $content
+     * @return Post
+     */
+    public function update($id, $content): Model;
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function delete($id): bool;
 }
