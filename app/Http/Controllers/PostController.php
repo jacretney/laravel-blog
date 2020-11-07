@@ -32,7 +32,7 @@ class PostController extends Controller
         $content = json_decode($request->getContent(), true);
         $post = $this->postRepository->create($content);
 
-        return new Response($post);
+        return new Response($post, 201);
     }
 
     /**
@@ -43,7 +43,11 @@ class PostController extends Controller
     public function show($id)
     {
         $post = $this->postRepository->byId($id);
-        return new Response($post);
+        if (!$post) {
+            return new Response([ "error" => "Post not found" ], 404);
+        }
+
+        return new Response($post, 200);
     }
 
     /**
@@ -56,8 +60,11 @@ class PostController extends Controller
     {
         $content = json_decode($request->getContent(), true);
         $post = $this->postRepository->update($id, $content);
+        if (!$post) {
+            return new Response([ "error" => "Post not found" ], 404);
+        }
 
-        return new Response($post);
+        return new Response($post, 200);
     }
 
     /**
@@ -67,7 +74,11 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $this->postRepository->delete($id);
-        return new Response([]);
+        try {
+            $this->postRepository->delete($id);
+            return new Response([], 204);
+        } catch(\Exception $exception) {
+            return new Response([ "error" => "Post not found" ], 404);
+        }
     }
 }

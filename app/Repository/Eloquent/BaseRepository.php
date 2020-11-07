@@ -4,6 +4,7 @@ namespace App\Repository\Eloquent;
 
 use App\Repository\EloquentRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Exception;
 
 class BaseRepository implements EloquentRepositoryInterface
 {
@@ -53,7 +54,7 @@ class BaseRepository implements EloquentRepositoryInterface
     /**
      * @param $id
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function delete($id): bool
     {
