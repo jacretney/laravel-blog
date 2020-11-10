@@ -11,7 +11,8 @@ This is a simple blogging app written using Laravel.
 
 - [X] API - Post Controller
 - [ ] API - Guarded Resources
-- [ ] DEV - CI/CD
+- [X] DEV - CI
+- [ ] DEV - CD
 - [ ] FE - Basic public facing site
 
 ## Nice to haves
