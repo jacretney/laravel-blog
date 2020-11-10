@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Api\Controllers;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Http\Api\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Repository\PostRepositoryInterface;
