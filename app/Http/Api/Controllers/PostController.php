@@ -2,12 +2,11 @@
 
 namespace App\Http\Api\Controllers;
 
-use App\Http\Api\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Repository\PostRepositoryInterface;
 
-class PostController extends Controller
+class PostController extends ApiController
 {
     /**
      * @var PostRepositoryInterface
